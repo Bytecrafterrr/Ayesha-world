@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wonderful World Ayesha</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{
+background:#04040c;
+color:white;
+overflow-x:hidden;
+cursor:none;
+}
+
+/* Animated Galaxy Background */
+body::before{
+content:"";
+position:fixed;
+width:200%;
+height:200%;
+background:url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564') repeat;
+background-size:cover;
+animation:galaxyMove 80s linear infinite;
+opacity:0.35;
+z-index:-3;
+}
+@keyframes galaxyMove{
+0%{transform:translate(0,0);}
+100%{transform:translate(-600px,-600px);}
+}
+
+/* Flash Effect */
+.flash{
+position:fixed;
+width:100%;
+height:100%;
+background:white;
+opacity:0;
+pointer-events:none;
+z-index:999;
+}
+
+/* Floating Particles */
+canvas{
+position:fixed;
+top:0;left:0;
+z-index:-2;
+}
+
+/* Custom Cursor */
+.cursor{
+width:18px;height:18px;
+border-radius:50%;
+position:fixed;
+background:linear-gradient(45deg,#ff00cc,#00ffff);
+box-shadow:0 0 20px #ff00cc,0 0 40px #00ffff;
+pointer-events:none;
+mix-blend-mode:screen;
+}
+
+/* Hero */
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+}
+.hero h1{
+font-size:3.2rem;
+background:linear-gradient(45deg,#ff00cc,#00ffff);
+-webkit-background-clip:text;
+color:transparent;
+text-shadow:0 0 40px rgba(255,0,200,0.6);
+}
+.typing{margin-top:15px;opacity:0.8;min-height:25px;}
+
+.glow-btn{
+margin-top:30px;
+padding:14px 35px;
+border-radius:30px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(10px);
+border:1px solid rgba(255,255,255,0.2);
+color:white;
+font-weight:600;
+cursor:pointer;
+box-shadow:0 0 20px #ff00cc;
+transition:0.4s;
+}
+.glow-btn:hover{
+transform:scale(1.1);
+box-shadow:0 0 50px #00ffff;
+}
+
+/* Quote Section */
+.section{
+padding:100px 20px;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:30px;
+}
+
+.card{
+width:300px;
+height:380px;
+border-radius:20px;
+overflow:hidden;
+position:relative;
+background-size:cover;
+background-position:center;
+transition:0.5s;
+transform-style:preserve-3d;
+opacity:0;
+transform:translateY(40px);
+}
+.card.show{
+opacity:1;
+transform:translateY(0);
+}
+.card:hover{
+transform:rotateY(8deg) rotateX(8deg) scale(1.05);
+}
+
+.card::after{
+content:"";
+position:absolute;
+inset:0;
+background:rgba(0,0,0,0.55);
+backdrop-filter:blur(6px);
+}
+
+.card p{
+position:absolute;
+bottom:20px;
+left:20px;
+right:20px;
+z-index:2;
+font-size:0.9rem;
+line-height:1.4;
+}
+
+.card{
+box-shadow:0 0 30px rgba(255,0,200,0.3);
+}
+
+/* Modal */
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.95);
+display:flex;
+justify-content:center;
+align-items:center;
+opacity:0;
+pointer-events:none;
+transition:0.6s;
+z-index:1000;
+}
+.modal.active{opacity:1;pointer-events:auto;}
+
+.modal-content{
+background:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee') center/cover;
+padding:60px 40px;
+border-radius:20px;
+text-align:center;
+max-width:500px;
+position:relative;
+overflow:hidden;
+box-shadow:0 0 50px #ff00cc;
+animation:pop 0.6s ease;
+}
+.modal-content::after{
+content:"";
+position:absolute;
+inset:0;
+background:rgba(0,0,0,0.7);
+}
+.modal-content h2,
+.modal-content p{
+position:relative;
+z-index:2;
+}
+
+@keyframes pop{
+0%{transform:scale(0.6);}
+100%{transform:scale(1);}
+}
+
+.hidden2{
+opacity:0;
+margin-top:20px;
+transition:2s;
+}
+
+/* Fireworks */
+.firework{
+position:fixed;
+width:6px;height:6px;
+background:white;
+border-radius:50%;
+pointer-events:none;
+}
+
+/* Responsive */
+@media(max-width:768px){
+.hero h1{font-size:2rem;}
+.card{width:90%;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="flash" id="flash"></div>
+<canvas id="particles"></canvas>
+<div class="cursor"></div>
+
+<section class="hero">
+<h1>Wonderful World Ayesha ✨</h1>
+<div class="typing"></div>
+<button class="glow-btn" onclick="unlockEnergy()">Unlock Hidden Energy</button>
+</section>
+
+<section class="section">
+
+<div class="card" style="background-image:url('https://images.unsplash.com/photo-1499084732479-de2c02d45fc4')">
+<p>"Always stay away from broken glass, because before you can even fix it, it can prick and hurt you."</p>
+</div>
+
+<div class="card" style="background-image:url('https://images.unsplash.com/photo-1500534314209-a25ddb2bd429')">
+<p>"Maybe someone actually died at 17, will just get buried at 71."</p>
+</div>
+
+<div class="card" style="background-image:url('https://images.unsplash.com/photo-1472214103451-9374bd1c798e')">
+<p>"Kabhi dar.. 🥺 To kabhi pyar aata hai.. ❤️ Itni nazuk dor hai ye.. 🙃 Isliye rona behisab aata hai.. 🥲💔"</p>
+</div>
+
+<div class="card" style="background-image:url('https://images.unsplash.com/photo-1469474968028-56623f02e42e')">
+<p>"In this wonderful world, Ayesha shines differently — silent but powerful ✨"</p>
+</div>
+
+</section>
+
+<div class="modal" id="modal">
+<div class="modal-content">
+<h2>Hidden frequency activated.</h2>
+<p>Depth is rare.<br>Silence is powerful.<br>Energy never lies. 🌑✨</p>
+<div class="hidden2" id="hiddenMsg">
+<p>Not everyone understands this world.<br>But some create their own.</p>
+</div>
+</div>
+</div>
+
+<audio id="bgMusic" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9e7e94.mp3"></audio>
+
+<script>
+// Cursor
+const cursor=document.querySelector('.cursor');
+document.addEventListener('mousemove',e=>{
+cursor.style.left=e.clientX+'px';
+cursor.style.top=e.clientY+'px';
+});
+
+// Typing
+const text="A mysterious digital universe crafted in silence...";
+let i=0;
+(function typing(){
+if(i<text.length){
+document.querySelector('.typing').innerHTML+=text.charAt(i);
+i++;
+setTimeout(typing,50);
+}
+})();
+
+// Scroll Reveal
+const cards=document.querySelectorAll('.card');
+window.addEventListener('scroll',()=>{
+cards.forEach(card=>{
+if(card.getBoundingClientRect().top<window.innerHeight-100){
+card.classList.add('show');
+}
+});
+});
+
+// Particles
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+let particles=[];
+for(let i=0;i<120;i++){
+particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2,d:Math.random()*0.8});
+}
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="white";
+particles.forEach(p=>{
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fill();
+p.y+=p.d;
+if(p.y>canvas.height)p.y=0;
+});
+requestAnimationFrame(draw);
+}
+draw();
+
+// Unlock Energy
+function unlockEnergy(){
+document.getElementById("flash").style.opacity=1;
+setTimeout(()=>{document.getElementById("flash").style.opacity=0;},200);
+
+document.getElementById("modal").classList.add("active");
+document.getElementById("bgMusic").play();
+
+for(let i=0;i<40;i++){
+let f=document.createElement("div");
+f.className="firework";
+f.style.left=Math.random()*innerWidth+"px";
+f.style.top=Math.random()*innerHeight+"px";
+document.body.appendChild(f);
+setTimeout(()=>{f.remove();},800);
+}
+
+setTimeout(()=>{
+document.getElementById("hiddenMsg").style.opacity=1;
+},5000);
+}
+</script>
+
+</body>
+</html>
